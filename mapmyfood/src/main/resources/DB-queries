@@ -1,0 +1,31 @@
+CREATE TABLE food_item (
+    id NUMBER PRIMARY KEY,
+    name VARCHAR2(255),
+    category VARCHAR2(255),
+    price NUMBER(10, 2)
+);
+
+CREATE TABLE order (
+    id NUMBER PRIMARY KEY,
+    order_number VARCHAR2(20) UNIQUE,
+    customer_name VARCHAR2(255),
+    order_date TIMESTAMP,
+    status VARCHAR2(20)
+);
+
+CREATE TABLE order_item (
+    id NUMBER PRIMARY KEY,
+    order_id NUMBER,
+    food_item_id NUMBER,
+    quantity NUMBER,
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (food_item_id) REFERENCES food_item(id)
+);
+
+CREATE TABLE payment (
+    id NUMBER PRIMARY KEY,
+    order_id NUMBER,
+    amount NUMBER(10, 2),
+    payment_date TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES order(id)
+);
